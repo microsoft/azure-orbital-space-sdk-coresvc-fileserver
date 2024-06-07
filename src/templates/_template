@@ -1,0 +1,25 @@
+[_templateUser-xfer]
+   path = _templateSpaceFxDir/xfer/_templateUser/
+   browsable = yes
+   read only = no
+   guest ok = no
+   veto files = /.apdisk/.DS_Store/.TemporaryItems/.Trashes/desktop.ini/ehthumbs.db/Network Trash Folder/Temporary Items/Thumbs.db/
+   delete veto files = yes
+   max disk size = _templateMaxDiskSize
+   writable = yes
+   create mode = 0777
+   directory mode = 0777
+   inherit permissions = yes
+
+[_templateUser-plugins]
+   path = _templateSpaceFxDir/plugins/_templateUser/
+   browsable = yes
+   read only = no
+   guest ok = no
+   veto files = /.apdisk/.DS_Store/.TemporaryItems/.Trashes/desktop.ini/ehthumbs.db/Network Trash Folder/Temporary Items/Thumbs.db/
+   delete veto files = yes
+   max disk size = _templateMaxDiskSize
+   writable = yes
+   create mode = 0777
+   directory mode = 0777
+   inherit permissions = yes
