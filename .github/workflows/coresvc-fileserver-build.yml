@@ -1,0 +1,52 @@
+name: coresvc-fileserver-build
+
+on: 
+    workflow_dispatch:
+    push:
+        branches:
+        - km/add_action
+
+env:
+  REGISTRY: ghcr.io
+  FEATURE: microsoft/azure-orbital-space-sdk/spacefx-dev
+  ARTIFACT_PATH: ./output/spacefx-dev/devcontainer-feature-spacefx-dev.tgz
+
+jobs:
+  build-publish-feature:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/initialize@main
+      with:
+        env_file: ./env/spacefx.env
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/install-devcontainer-cli@main
+
+    # - name: devcontainer-start-up
+    #   shell: bash
+    #   run: |
+    #     devcontainer up --workspace-folder ${PWD}
+
+    - name: get-var-spacedev
+      shell: bash
+      run: |
+        git clone ${{ secrets.setup_repo_url}}
+        cd azure-orbital-space-sdk-setup
+        bash ./.vscode/copy_to_spacedev.sh        
+
+    - name: Build amd64 container image
+      shell: bash
+      run: |
+        bash /var/spacedev/build/build_containerImage.sh --dockerfile Dockerfiles/Dockerfile --image-tag 0.11.0 --architecture amd64 --repo-dir ${PWD} --app-name coresvc-fileserver --annotation-config azure-orbital-space-sdk-coresvc-fileserver.yaml
+
+    - name: Build arm64 container image
+      shell: bash
+      run: |
+        bash /var/spacedev/build/build_containerImage.sh --dockerfile Dockerfiles/Dockerfile --image-tag 0.11.0 --architecture arm64 --repo-dir ${PWD} --app-name coresvc-fileserver --annotation-config azure-orbital-space-sdk-coresvc-fileserver.yaml
