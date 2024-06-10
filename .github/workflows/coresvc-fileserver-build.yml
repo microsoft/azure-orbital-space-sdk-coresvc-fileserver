@@ -22,24 +22,13 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/initialize@main
-      with:
-        env_file: ./env/spacefx.env
-        token: ${{ secrets.GITHUB_TOKEN }}
-
     - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/install-devcontainer-cli@main
 
-    # - name: devcontainer-start-up
-    #   shell: bash
-    #   run: |
-    #     devcontainer up --workspace-folder ${PWD}
-
-    - name: get-var-spacedev
-      shell: bash
-      run: |
-        git clone ${{ secrets.setup_repo_url}}
-        cd azure-orbital-space-sdk-setup
-        bash ./.vscode/copy_to_spacedev.sh        
+    - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/devcontainer-up@km/add_dev-container
+      with: 
+        registry-name: ${{ env.REGISTRY }}
+        github-user-name: ${{ secrets.git_hub_user_name }}
+        github-user-token: ${{ secrets.git_hub_user_token }}
 
     - name: Build amd64 container image
       shell: bash
