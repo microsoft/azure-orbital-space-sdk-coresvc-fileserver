@@ -22,8 +22,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/install-devcontainer-cli@main
-
     - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/registry-login@km/add_dev-container
       with:
         registry-name: ${{ env.REGISTRY}}
@@ -59,13 +57,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/install-devcontainer-cli@main
-
     - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/registry-login@km/add_dev-container
       with:
-        registry: ${{ env.REGISTRY}}
-        username: ${{ secrets.GIT_HUB_USER_NAME }}
-        password: ${{ secrets.GIT_HUB_USER_TOKEN }}
+        registry-name: ${{ env.REGISTRY}}
+        github-user-name: ${{ secrets.GIT_HUB_USER_NAME }}
+        github-user-token: ${{ secrets.GIT_HUB_USER_TOKEN }}
 
     - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/get-setup@km/add_dev-container
       with: 
