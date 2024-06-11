@@ -12,7 +12,7 @@ env:
   ANNOTATION: azure-orbital-space-sdk-coresvc-fileserver.yaml
 
 jobs:
-  build-publish-feature:
+  build-publish-coresvc-fileserver-amd64:
     runs-on: ubuntu-latest
 
     permissions:
@@ -47,6 +47,28 @@ jobs:
       run: |
         echo "Running build_containerImage.sh script:"
         bash /var/spacedev/build/build_containerImage.sh --dockerfile Dockerfiles/Dockerfile --image-tag $SPACEFX_VERSION --architecture amd64 --repo-dir ${PWD} --app-name ${{ env.APP_NAME }} --annotation-config ${{ env.ANNOTATION}}
+
+  build-publish-coresvc-fileserver-arm64:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/install-devcontainer-cli@main
+
+    - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/registry-login@km/add_dev-container
+      with:
+        registry: ${{ env.REGISTRY}}
+        username: ${{ secrets.GIT_HUB_USER_NAME }}
+        password: ${{ secrets.GIT_HUB_USER_TOKEN }}
+
+    - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/get-setup@km/add_dev-container
+      with: 
+        setup-repo-url: ${{ secrets.SETUP_REPO_URL }}
 
     - name: Build arm64 container image
       shell: bash
