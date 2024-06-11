@@ -34,7 +34,6 @@ jobs:
       shell: bash
       run: |
         ls -la ${PWD}
-        ls -la /spacefx-dev
         ls -la /var/spacedev/
         
         source /var/spacedev/env/spacefx.env
