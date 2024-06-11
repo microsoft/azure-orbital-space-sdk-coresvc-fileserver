@@ -1,5 +1,7 @@
 # Coresvc-Fileserver
 
+[![coresvc-fileserver-build](https://github.com/microsoft/azure-orbital-space-sdk-coresvc-fileserver/actions/workflows/coresvc-fileserver-build.yml/badge.svg)](https://github.com/microsoft/azure-orbital-space-sdk-coresvc-fileserver/actions/workflows/coresvc-fileserver-build.yml)
+
 Fileserver is the Azure Orbital SDK's SMB Server used for file transfers between apps.
 
 ## Build
