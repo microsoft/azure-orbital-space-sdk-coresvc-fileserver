@@ -32,20 +32,20 @@ jobs:
       with: 
         setup-repo-url: ${{ secrets.SETUP_REPO_URL }}
 
-    # - name: Perform login steps
+    - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/run-build-container-image@km/add_dev-container
+      with: 
+        dockerfile: Dockerfiles/Dockerfile
+        architecture: amd64
+        repo-dir: ${{ github.workspace }}
+        app-name: ${{ env.APP_NAME }}
+        annotation-config: ${{ env.ANNOTATION }}
+
+    # - name: Build amd64 container image
     #   shell: bash
     #   run: |
-    #     echo "Performing login step"
-    #     docker login ghcr.io -u ${{ secrets.GIT_HUB_USER_NAME }} -p ${{ secrets.GIT_HUB_USER_TOKEN }}
-    #     echo "Performing sudo login step"
-    #     sudo docker login ghcr.io -u ${{ secrets.GIT_HUB_USER_NAME }} -p ${{ secrets.GIT_HUB_USER_TOKEN }}
-
-    - name: Build amd64 container image
-      shell: bash
-      run: |
-        source /var/spacedev/env/spacefx.env
-        echo "Running build_containerImage.sh script:"
-        bash /var/spacedev/build/build_containerImage.sh --dockerfile Dockerfiles/Dockerfile --image-tag $SPACEFX_VERSION --architecture amd64 --repo-dir ${PWD} --app-name ${{ env.APP_NAME }} --annotation-config ${{ env.ANNOTATION}}
+    #     source /var/spacedev/env/spacefx.env
+    #     echo "Running build_containerImage.sh script:"
+    #     bash /var/spacedev/build/build_containerImage.sh --dockerfile Dockerfiles/Dockerfile --image-tag $SPACEFX_VERSION --architecture amd64 --repo-dir ${PWD} --app-name ${{ env.APP_NAME }} --annotation-config ${{ env.ANNOTATION}}
 
   build-publish-coresvc-fileserver-arm64:
     runs-on: ubuntu-latest
@@ -67,9 +67,17 @@ jobs:
       with: 
         setup-repo-url: ${{ secrets.SETUP_REPO_URL }}
 
-    - name: Build arm64 container image
-      shell: bash
-      run: |
-        source /var/spacedev/env/spacefx.env  
-        echo "Running build_containerImage.sh script:"
-        bash /var/spacedev/build/build_containerImage.sh --dockerfile Dockerfiles/Dockerfile --image-tag $SPACEFX_VERSION --architecture arm64 --repo-dir ${PWD} --app-name ${{ env.APP_NAME }} --annotation-config ${{ env.ANNOTATION}}
+    # - name: Build arm64 container image
+    #   shell: bash
+    #   run: |
+    #     source /var/spacedev/env/spacefx.env  
+    #     echo "Running build_containerImage.sh script:"
+    #     bash /var/spacedev/build/build_containerImage.sh --dockerfile Dockerfiles/Dockerfile --image-tag $SPACEFX_VERSION --architecture arm64 --repo-dir ${PWD} --app-name ${{ env.APP_NAME }} --annotation-config ${{ env.ANNOTATION}}
+
+    - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/run-build-container-image@km/add_dev-container
+      with: 
+        dockerfile: Dockerfiles/Dockerfile
+        architecture: arm64
+        repo-dir: ${{ github.workspace }}
+        app-name: ${{ env.APP_NAME }}
+        annotation-config: ${{ env.ANNOTATION }}
