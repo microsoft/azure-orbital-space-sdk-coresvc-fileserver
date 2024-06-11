@@ -22,30 +22,23 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/registry-login@km/add_dev-container
+    - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/registry-login@main
       with:
         registry-name: ${{ env.REGISTRY}}
         github-user-name: ${{ secrets.GIT_HUB_USER_NAME }}
         github-user-token: ${{ secrets.GIT_HUB_USER_TOKEN }}
 
-    - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/get-setup@km/add_dev-container
+    - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/get-setup@main
       with: 
         setup-repo-url: ${{ secrets.SETUP_REPO_URL }}
 
-    - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/run-build-container-image@km/add_dev-container
+    - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/run-build-container-image@main
       with: 
         dockerfile: Dockerfiles/Dockerfile
         architecture: amd64
         repo-dir: ${{ github.workspace }}
         app-name: ${{ env.APP_NAME }}
         annotation-config: ${{ env.ANNOTATION }}
-
-    # - name: Build amd64 container image
-    #   shell: bash
-    #   run: |
-    #     source /var/spacedev/env/spacefx.env
-    #     echo "Running build_containerImage.sh script:"
-    #     bash /var/spacedev/build/build_containerImage.sh --dockerfile Dockerfiles/Dockerfile --image-tag $SPACEFX_VERSION --architecture amd64 --repo-dir ${PWD} --app-name ${{ env.APP_NAME }} --annotation-config ${{ env.ANNOTATION}}
 
   build-coresvc-fileserver-arm64:
     runs-on: ubuntu-latest
@@ -57,24 +50,17 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/registry-login@km/add_dev-container
+    - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/registry-login@main
       with:
         registry-name: ${{ env.REGISTRY}}
         github-user-name: ${{ secrets.GIT_HUB_USER_NAME }}
         github-user-token: ${{ secrets.GIT_HUB_USER_TOKEN }}
 
-    - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/get-setup@km/add_dev-container
+    - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/get-setup@main
       with: 
         setup-repo-url: ${{ secrets.SETUP_REPO_URL }}
 
-    # - name: Build arm64 container image
-    #   shell: bash
-    #   run: |
-    #     source /var/spacedev/env/spacefx.env  
-    #     echo "Running build_containerImage.sh script:"
-    #     bash /var/spacedev/build/build_containerImage.sh --dockerfile Dockerfiles/Dockerfile --image-tag $SPACEFX_VERSION --architecture arm64 --repo-dir ${PWD} --app-name ${{ env.APP_NAME }} --annotation-config ${{ env.ANNOTATION}}
-
-    - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/run-build-container-image@km/add_dev-container
+    - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/run-build-container-image@main
       with: 
         dockerfile: Dockerfiles/Dockerfile
         architecture: arm64
