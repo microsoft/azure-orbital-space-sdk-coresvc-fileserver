@@ -4,7 +4,7 @@ on:
     workflow_dispatch:
     push:
         branches:
-        - km/reuse_workflow
+        - main
 
 jobs:
   build-coresvc-fileserver-amd64:
