@@ -12,7 +12,7 @@ env:
   ANNOTATION: azure-orbital-space-sdk-coresvc-fileserver.yaml
 
 jobs:
-  build-publish-coresvc-fileserver-amd64:
+  build-coresvc-fileserver-amd64:
     runs-on: ubuntu-latest
 
     permissions:
@@ -47,7 +47,7 @@ jobs:
     #     echo "Running build_containerImage.sh script:"
     #     bash /var/spacedev/build/build_containerImage.sh --dockerfile Dockerfiles/Dockerfile --image-tag $SPACEFX_VERSION --architecture amd64 --repo-dir ${PWD} --app-name ${{ env.APP_NAME }} --annotation-config ${{ env.ANNOTATION}}
 
-  build-publish-coresvc-fileserver-arm64:
+  build-coresvc-fileserver-arm64:
     runs-on: ubuntu-latest
 
     permissions:
