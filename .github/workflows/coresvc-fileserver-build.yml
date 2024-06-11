@@ -45,6 +45,7 @@ jobs:
     - name: Build amd64 container image
       shell: bash
       run: |
+        source /var/spacedev/env/spacefx.env
         echo "Running build_containerImage.sh script:"
         bash /var/spacedev/build/build_containerImage.sh --dockerfile Dockerfiles/Dockerfile --image-tag $SPACEFX_VERSION --architecture amd64 --repo-dir ${PWD} --app-name ${{ env.APP_NAME }} --annotation-config ${{ env.ANNOTATION}}
 
@@ -74,4 +75,5 @@ jobs:
       shell: bash
       run: |
         source /var/spacedev/env/spacefx.env  
+        echo "Running build_containerImage.sh script:"
         bash /var/spacedev/build/build_containerImage.sh --dockerfile Dockerfiles/Dockerfile --image-tag $SPACEFX_VERSION --architecture arm64 --repo-dir ${PWD} --app-name ${{ env.APP_NAME }} --annotation-config ${{ env.ANNOTATION}}
