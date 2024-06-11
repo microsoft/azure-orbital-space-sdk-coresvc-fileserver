@@ -1,0 +1,69 @@
+name: coresvc-fileserver-build
+
+on: 
+    workflow_dispatch:
+    push:
+        branches:
+        - km/add_action
+
+env:
+  REGISTRY: ghcr.io
+  APP_NAME: coresvc-fileserver
+  ANNOTATION: azure-orbital-space-sdk-coresvc-fileserver.yaml
+
+jobs:
+  build-coresvc-fileserver-amd64:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/registry-login@main
+      with:
+        registry-name: ${{ env.REGISTRY}}
+        github-user-name: ${{ secrets.GIT_HUB_USER_NAME }}
+        github-user-token: ${{ secrets.GIT_HUB_USER_TOKEN }}
+
+    - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/get-setup@main
+      with: 
+        setup-repo-url: ${{ secrets.SETUP_REPO_URL }}
+
+    - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/run-build-container-image@main
+      with: 
+        dockerfile: Dockerfiles/Dockerfile
+        architecture: amd64
+        repo-dir: ${{ github.workspace }}
+        app-name: ${{ env.APP_NAME }}
+        annotation-config: ${{ env.ANNOTATION }}
+
+  build-coresvc-fileserver-arm64:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/registry-login@main
+      with:
+        registry-name: ${{ env.REGISTRY}}
+        github-user-name: ${{ secrets.GIT_HUB_USER_NAME }}
+        github-user-token: ${{ secrets.GIT_HUB_USER_TOKEN }}
+
+    - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/get-setup@main
+      with: 
+        setup-repo-url: ${{ secrets.SETUP_REPO_URL }}
+
+    - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/run-build-container-image@main
+      with: 
+        dockerfile: Dockerfiles/Dockerfile
+        architecture: arm64
+        repo-dir: ${{ github.workspace }}
+        app-name: ${{ env.APP_NAME }}
+        annotation-config: ${{ env.ANNOTATION }}
