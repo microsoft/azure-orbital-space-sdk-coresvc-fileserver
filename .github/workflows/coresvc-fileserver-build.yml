@@ -33,8 +33,9 @@ jobs:
     - name: Build amd64 container image
       shell: bash
       run: |
-        ls .   
-        ls /var/spacedev/
+        ls -la ${PWD}
+        ls -la /spacefx-dev
+        ls -la /var/spacedev/
         
         source /var/spacedev/env/spacefx.env
         bash /var/spacedev/build/build_containerImage.sh --dockerfile Dockerfiles/Dockerfile --image-tag $SPACEFX_VERSION --architecture amd64 --repo-dir ${PWD} --app-name ${{ env.APP_NAME }} --annotation-config ${{ env.ANNOTATION}}
