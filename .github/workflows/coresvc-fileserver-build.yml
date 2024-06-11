@@ -33,6 +33,7 @@ jobs:
     - name: Build amd64 container image
       shell: bash
       run: |
+        ls .   
         ls /var/spacedev/
         
         source /var/spacedev/env/spacefx.env
