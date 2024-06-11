@@ -27,8 +27,8 @@ jobs:
     - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/devcontainer-up@km/add_dev-container
       with: 
         registry-name: ${{ env.REGISTRY }}
-        github-user-name: ${{ secrets.GIT_HUB_USER_NAME }}
-        github-user-token: ${{ secrets.GITH_HUB_USER_TOKEN }}
+        github-user-name: ${{ secrets.git_hub_user_name }}
+        github-user-token: ${{ secrets.git_hub_user_token }}
 
     - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/get-setup@km/add_dev-container
       with: 
