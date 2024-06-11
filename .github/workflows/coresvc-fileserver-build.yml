@@ -18,7 +18,7 @@ jobs:
       APP_NAME: coresvc-fileserver
       ANNOTATION: azure-orbital-space-sdk-coresvc-fileserver.yaml
       WORKFLOW_AGENT: ubuntu-latest
-      ARCHITECTURE: arm64
+      ARCHITECTURE: amd64
     secrets:
       GIT_HUB_USER_NAME: ${{ secrets.GIT_HUB_USER_NAME }}
       GIT_HUB_USER_TOKEN: ${{ secrets.GIT_HUB_USER_TOKEN }}
