@@ -24,41 +24,32 @@ jobs:
 
     - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/install-devcontainer-cli@main
 
-    - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/devcontainer-up@km/add_dev-container
-      with: 
-        registry-name: ${{ env.REGISTRY }}
-        github-user-name: ${{ secrets.git_hub_user_name }}
-        github-user-token: ${{ secrets.git_hub_user_token }}
+    - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/registry-login@km/add_dev-container
+      with:
+        registry: ${{ env.REGISTRY}}
+        username: ${{ secrets.GIT_HUB_USER_NAME }}
+        password: ${{ secrets.GIT_HUB_USER_TOKEN }}
 
     - uses: microsoft/azure-orbital-space-sdk-github-actions/composite-actions/get-setup@km/add_dev-container
       with: 
         setup-repo-url: ${{ secrets.SETUP_REPO_URL }}
 
-    - name: Perform login steps
-      shell: bash
-      run: |
-        echo "Performing login step"
-        docker login ghcr.io -u ${{ secrets.GIT_HUB_USER_NAME }} -p ${{ secrets.GIT_HUB_USER_TOKEN }}
-        echo "Performing sudo login step"
-        sudo docker login ghcr.io -u ${{ secrets.GIT_HUB_USER_NAME }} -p ${{ secrets.GIT_HUB_USER_TOKEN }}
+    # - name: Perform login steps
+    #   shell: bash
+    #   run: |
+    #     echo "Performing login step"
+    #     docker login ghcr.io -u ${{ secrets.GIT_HUB_USER_NAME }} -p ${{ secrets.GIT_HUB_USER_TOKEN }}
+    #     echo "Performing sudo login step"
+    #     sudo docker login ghcr.io -u ${{ secrets.GIT_HUB_USER_NAME }} -p ${{ secrets.GIT_HUB_USER_TOKEN }}
 
     - name: Build amd64 container image
       shell: bash
       run: |
-        echo "Output Current Directory:"
-        ls -la ${PWD}
-        echo ""
-        echo "Output /var/spacedev/ Directory:"
-        ls -la /var/spacedev/
-        echo ""
-        echo "Sourcing spacefx.env file:"
-        source /var/spacedev/env/spacefx.env
-        echo ""
         echo "Running build_containerImage.sh script:"
         bash /var/spacedev/build/build_containerImage.sh --dockerfile Dockerfiles/Dockerfile --image-tag $SPACEFX_VERSION --architecture amd64 --repo-dir ${PWD} --app-name ${{ env.APP_NAME }} --annotation-config ${{ env.ANNOTATION}}
 
-    # - name: Build arm64 container image
-    #   shell: bash
-    #   run: |
-    #     source /var/spacedev/env/spacefx.env  
-    #     bash /var/spacedev/build/build_containerImage.sh --dockerfile Dockerfiles/Dockerfile --image-tag $SPACEFX_VERSION --architecture arm64 --repo-dir ${PWD} --app-name ${{ env.APP_NAME }} --annotation-config ${{ env.ANNOTATION}}
+    - name: Build arm64 container image
+      shell: bash
+      run: |
+        source /var/spacedev/env/spacefx.env  
+        bash /var/spacedev/build/build_containerImage.sh --dockerfile Dockerfiles/Dockerfile --image-tag $SPACEFX_VERSION --architecture arm64 --repo-dir ${PWD} --app-name ${{ env.APP_NAME }} --annotation-config ${{ env.ANNOTATION}}
