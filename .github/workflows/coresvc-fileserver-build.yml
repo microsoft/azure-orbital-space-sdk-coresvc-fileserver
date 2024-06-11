@@ -34,12 +34,13 @@ jobs:
       with: 
         setup-repo-url: ${{ secrets.SETUP_REPO_URL }}
 
-    - name: Log in to the Container registry
-      uses: docker/login-action@v3
-      with:
-        registry: ${{ env.REGISTRY }}
-        username: ${{ secrets.GIT_HUB_USER_NAME }}
-        password: ${{ secrets.GIT_HUB_USER_TOKEN }}
+    - name: Perform login steps
+      shell: bash
+      run: |
+        echo "Performing login step"
+        docker login ghcr.io -u ${{ secrets.GIT_HUB_USER_NAME }} -p ${{ secrets.GIT_HUB_USER_TOKEN }}
+        echo "Performing sudo login step"
+        sudo docker login ghcr.io -u ${{ secrets.GIT_HUB_USER_NAME }} -p ${{ secrets.GIT_HUB_USER_TOKEN }}
 
     - name: Build amd64 container image
       shell: bash
