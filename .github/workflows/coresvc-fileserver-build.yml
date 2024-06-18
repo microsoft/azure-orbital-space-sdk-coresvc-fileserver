@@ -4,7 +4,7 @@ on:
     workflow_dispatch:
     push:
         branches:
-        - main
+        - km/test_workflow_change
 
 jobs:
   build-coresvc-fileserver-amd64:
@@ -12,7 +12,7 @@ jobs:
       contents: read
       packages: write
 
-    uses: microsoft/azure-orbital-space-sdk-github-actions/.github/workflows/coresvc-build.yaml@main
+    uses: microsoft/azure-orbital-space-sdk-github-actions/.github/workflows/coresvc-build.yaml@km/coresvc-fix
     with:
       REGISTRY: ghcr.io
       APP_NAME: coresvc-fileserver
@@ -29,7 +29,7 @@ jobs:
       contents: read
       packages: write
 
-    uses: microsoft/azure-orbital-space-sdk-github-actions/.github/workflows/coresvc-build.yaml@main
+    uses: microsoft/azure-orbital-space-sdk-github-actions/.github/workflows/coresvc-build.yaml@km/coresvc-fix
     with:
       REGISTRY: ghcr.io
       APP_NAME: coresvc-fileserver
