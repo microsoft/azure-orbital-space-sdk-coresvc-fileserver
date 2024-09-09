@@ -5,6 +5,7 @@ on:
     push:
         branches:
         - main
+        - '[0-9]*.[0-9]*.[0-9]*-nightly'
 
 jobs:
   build-coresvc-fileserver-amd64:
@@ -12,7 +13,7 @@ jobs:
       contents: read
       packages: write
 
-    uses: microsoft/azure-orbital-space-sdk-github-actions/.github/workflows/coresvc-build.yaml@main
+    uses: microsoft/azure-orbital-space-sdk-github-actions/.github/workflows/coresvc-build.yaml@0.11.0-nightly
     with:
       REGISTRY: ghcr.io
       APP_NAME: coresvc-fileserver
@@ -29,7 +30,7 @@ jobs:
       contents: read
       packages: write
 
-    uses: microsoft/azure-orbital-space-sdk-github-actions/.github/workflows/coresvc-build.yaml@main
+    uses: microsoft/azure-orbital-space-sdk-github-actions/.github/workflows/coresvc-build.yaml@0.11.0-nightly
     with:
       REGISTRY: ghcr.io
       APP_NAME: coresvc-fileserver
